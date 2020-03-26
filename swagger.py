@@ -3,50 +3,107 @@ import json
 '''
 Swagger API call v 0.5
 '''
-# задали базовый урл
-base_url = 'https://petstore.swagger.io/v2'
 
-# получаем информацию о питомце по ид
-def pet(petid):
-    api_url = f"{base_url}/pet/{petid}"
+base_url = 'https://superhero.qa-test.csssr.com'
+
+# get
+def get_superheroes(hid=None, api_link="superheroes"):
+    api_url = f"{base_url}/{api_link}" if hid is None else f"{base_url}/{api_link}/{hid}"
     r = requests.get(api_url)
     return r
-# для обновления информации нам надо послать ИД, имя и статус
-def pet_upd(petid, name, status="available"):
-    api_url = f"{base_url}/pet/{petid}"
-    # словарь с параметрами
-    api_data = {
-        'petId':petid,
-        'name':name,
-        'status':status
-        }
-    r = requests.post(api_url, api_data)
+# post
+def post_superheroes(dto):
+    api_url = f"{base_url}/superheroes"
+    api_data = dto
+    r = requests.post(api_url, json=api_data)
     return r    
+# put
+def put_superheroes(hid, dto):
+    api_url = f"{base_url}/superheroes/{hid}"
+    api_data = dto
+    r = requests.put(api_url, json=api_data)
+    return r  
 
-# выводим и анализируем результат
+# delete
+def del_superheroes(hid):
+    api_url = f"{base_url}/superheroes/{hid}"
+    r = requests.delete(api_url)
+    return r
+
+# print request info
 def req_info(r):
+    status_code = r.status_code
     try:
-        answer = r.json()
-    # если случилась ошибка декодирования
+        r_body = r.json()
     except json.decoder.JSONDecodeError:
-        answer = r.content
-    # узнаем статус-код
-    print("Status Code:",r.status_code)
-    # и печатаем что там в ответе
-    print(answer)
+        r_body = r.content
+    return status_code, r_body
+
+def print_me(r):
+    status_code = r[0]
+    r_body = r[1]
+    print("Status Code:", status_code)
+    print("We get:", r_body)
 
 if __name__ == '__main__':
-    # с ид 1 должно быть все ок -200
-    r = pet(1)
-    req_info(r)
-    # тут должно быть 404
-    r = pet(0)
-    req_info(r)
-    # по документаци при неверном ид должен возвращаться статус 400
-    r = pet(5.01)
-    req_info(r)
+    # small tests
+    
+    hd = {"id": 1,
+      "fullName": "Skitter",
+      "birthDate": "1985-06-23",
+      "city": "Brokton Bay",
+      "mainSkill": "Bug control",
+      "gender": "f",
+      "phone": "+17569009999"
+    }
+    hd2 = {"id": 2,
+      "fullName": "Bitch",
+      "birthDate": "1980-01-25",
+      "city": "Brokton Bay",
+      "team": "Undersider",
+      "mainSkill": "Dog control",
+      "gender": "f"
+    }
+    hd3 = {"id": 3,
+      "fullName": "Grue",
+      "birthDate": "1983-03-03",
+      "city": "Brokton Bay",
+      "mainSkill": "Make darknes",
+      "gender": "m",
+      "phone": ""
+    }
 
-    print("UPD")
-    # апд. по апи
-    r = pet_upd(1, "dog")
-    req_info(r)
+    hd4 = {
+      "fullName": "Bonesaw",
+      "birthDate": "2000-03-23",
+      "city": "Johanessburg",
+      "mainSkill": "Bio control",
+      "gender": "f",
+      "phone": "+17569005555"
+    }
+   
+    r = get_superheroes()
+    print_me(req_info(r)) 
+    '''
+    r = get_superheroes(391)
+    print_me(req_info(r))
+    r = get_superheroes(0)
+    print_me(req_info(r))
+    r = get_superheroes(391, "sh")
+    print_me(req_info(r))
+    
+    r = post_superheroes(hd)
+    print(r.request.body)
+    print_me(req_info(r))
+    
+    r = get_superheroes(406)
+    print_me(req_info(r))
+    r = put_superheroes(hd2, 406)
+    print(r.request.body)
+    print_me(req_info(r))
+    r = get_superheroes(406)
+    print_me(req_info(r))
+    '''
+    r = post_superheroes(hd4)
+    print(r.request.body)
+    print_me(req_info(r))
