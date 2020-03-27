@@ -1,3 +1,13 @@
+Инстукция:
+
+1. Установить Python 3.6 или выше
+2. Создать venv (python3 -m venv venv)
+3. Скачаь и разархивировать репозиторий в катоалог виртуальной среды (venv)
+4. Установить зависимости (pip install -r requirements.txt)
+5. Запуск  тестов 
+* REST: >python3 test_controller_api.py
+* SOAP: >python3 test_soap.py
+
 # csssr_test
 
 REST API
