@@ -56,54 +56,9 @@ if __name__ == '__main__':
       "gender": "f",
       "phone": "+17569009999"
     }
-    hd2 = {"id": 2,
-      "fullName": "Bitch",
-      "birthDate": "1980-01-25",
-      "city": "Brokton Bay",
-      "team": "Undersider",
-      "mainSkill": "Dog control",
-      "gender": "f"
-    }
-    hd3 = {"id": 3,
-      "fullName": "Grue",
-      "birthDate": "1983-03-03",
-      "city": "Brokton Bay",
-      "mainSkill": "Make darknes",
-      "gender": "m",
-      "phone": ""
-    }
-
-    hd4 = {
-      "fullName": "Bonesaw",
-      "birthDate": "2000-03-23",
-      "city": "Johanessburg",
-      "mainSkill": "Bio control",
-      "gender": "f",
-      "phone": "+17569005555"
-    }
-   
+    
     r = get_superheroes()
-    print_me(req_info(r)) 
-    '''
-    r = get_superheroes(391)
     print_me(req_info(r))
-    r = get_superheroes(0)
-    print_me(req_info(r))
-    r = get_superheroes(391, "sh")
-    print_me(req_info(r))
-    
     r = post_superheroes(hd)
-    print(r.request.body)
-    print_me(req_info(r))
-    
-    r = get_superheroes(406)
-    print_me(req_info(r))
-    r = put_superheroes(hd2, 406)
-    print(r.request.body)
-    print_me(req_info(r))
-    r = get_superheroes(406)
-    print_me(req_info(r))
-    '''
-    r = post_superheroes(hd4)
     print(r.request.body)
     print_me(req_info(r))
