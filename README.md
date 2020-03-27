@@ -15,3 +15,14 @@ REST API
 * [№2](https://github.com/alex-pancho/csssr_test/issues/2)
 * [№3](https://github.com/alex-pancho/csssr_test/issues/3)
 * [№4](https://github.com/alex-pancho/csssr_test/issues/4)
+
+SOAP API
+
+Источник: [superhero.qa-test.csssr.com/ws/](https://soap.qa-test.csssr.com/ws/soap.wsdl)
+
+Тестовое покрытие:
+
+* soapwsdl.py
+* test_soap.py
+
+Тоьлко позитивное тестирование, 5 тест-кейсов, багов не обнаружено.
